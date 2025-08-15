@@ -5,6 +5,7 @@
  */
 package com.github.peco2282.paperkit.packet
 
+import org.bukkit.entity.Entity
 import org.bukkit.util.Vector
 
 /**
@@ -56,4 +57,18 @@ interface ITeleportEntityPacket : PlayerPacket {
 
   var rotX: Float
   var rotY: Float
+}
+
+enum class EntityAnimation(internal val value: Int) {
+  SWING_MAIN_HAND(0),
+  UAKE_UP(2),
+  SWING_OFFHAND(3),
+  CRITICAL_HIT(4),
+  MAGIC_CRITICAL_HIT(5);
+}
+
+interface IAnimatePacket : PlayerPacket {
+  var entity: Entity?
+
+  var animation: EntityAnimation
 }
