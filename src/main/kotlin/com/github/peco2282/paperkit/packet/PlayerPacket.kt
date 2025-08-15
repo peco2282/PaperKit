@@ -68,7 +68,9 @@ interface ITeleportEntityPacket : PlayerPacket {
  *
  * @property value The internal numeric value of the animation
  */
-enum class EntityAnimation(internal val value: Int) {
+enum class EntityAnimation(
+  internal val value: Int
+) {
   /** Animation for swinging the main hand */
   SWING_MAIN_HAND(0),
 
@@ -82,7 +84,7 @@ enum class EntityAnimation(internal val value: Int) {
   CRITICAL_HIT(4),
 
   /** Animation for a magical critical hit */
-  MAGIC_CRITICAL_HIT(5);
+  MAGIC_CRITICAL_HIT(5)
 }
 
 /**

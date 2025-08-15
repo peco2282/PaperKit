@@ -78,12 +78,19 @@ internal object ClientboundAbsoluteTeleportEntityPacketDefault : ClientboundTele
 internal object ClientboundRelativeTeleportEntityPacketDefault :
   ClientboundTeleportEntityPacketDefault(setOf(Relative.X, Relative.Y, Relative.Z))
 
-internal class ClientboundAnimatePacketDefault(override var entity: Entity?) : IAnimatePacket, PacketWrapper {
+internal class ClientboundAnimatePacketDefault(
+  override var entity: Entity?
+) : IAnimatePacket,
+  PacketWrapper {
   override var animation: EntityAnimation = EntityAnimation.SWING_MAIN_HAND
-  override fun convert() =
-    ClientboundAnimatePacket(entity.cast(CraftEntity::class.java).handle, animation.value)
 
-  override fun validate() = entity != null && entity is CraftEntity && EntityAnimation.SWING_MAIN_HAND.value <= animation.value && animation.value <= EntityAnimation.MAGIC_CRITICAL_HIT.value
+  override fun convert() = ClientboundAnimatePacket(entity.cast(CraftEntity::class.java).handle, animation.value)
+
+  override fun validate() =
+    entity != null &&
+      entity is CraftEntity &&
+      EntityAnimation.SWING_MAIN_HAND.value <= animation.value &&
+      animation.value <= EntityAnimation.MAGIC_CRITICAL_HIT.value
 }
 
 internal object ClientboundUpdateAdvancementsPacketDefault : IUpdateAdvancementsPacket, PacketWrapper {
@@ -91,13 +98,22 @@ internal object ClientboundUpdateAdvancementsPacketDefault : IUpdateAdvancements
   override var add: Collection<Advancement> = listOf()
   override var remove: Collection<NamespacedKey> = listOf()
   override var progress: Map<NamespacedKey, AdvancementProgress> = mapOf()
-  override fun convert() = ClientboundUpdateAdvancementsPacket(
-    reset,
-    add.map { it.cast(CraftAdvancement::class.java).handle },
-    remove.map { it.location() }.toSet(),
-    progress.map { it.key.location() to getReflectField<AdvancementProgress, net.minecraft.advancements.AdvancementProgress>(it.value.javaClass, "handle", it.value)
-     }.toMap()
-  )
+
+  override fun convert() =
+    ClientboundUpdateAdvancementsPacket(
+      reset,
+      add.map { it.cast(CraftAdvancement::class.java).handle },
+      remove.map { it.location() }.toSet(),
+      progress
+        .map {
+          it.key.location() to
+            getReflectField<AdvancementProgress, net.minecraft.advancements.AdvancementProgress>(
+              it.value.javaClass,
+              "handle",
+              it.value
+            )
+        }.toMap()
+    )
 
   override fun validate(): Boolean {
     val size = add.isNotEmpty() && remove.isNotEmpty() && progress.isNotEmpty() && add.size == remove.size

@@ -20,14 +20,9 @@ public interface PacketConsumers {
   /** Consumer interface for handling entity teleportation packets. */
   interface ITeleportEntityPacketConsumer extends Consumer<ITeleportEntityPacket> {}
 
-  /**
-   * Consumer interface for handling entity animation packets.
-   */
-  interface IAnimatePacketConsumer extends Consumer<IAnimatePacket> {
-  }
+  /** Consumer interface for handling entity animation packets. */
+  interface IAnimatePacketConsumer extends Consumer<IAnimatePacket> {}
 
-  /**
-   * Consumer interface for handling advancement update packets.
-   */
+  /** Consumer interface for handling advancement update packets. */
   interface IUpdateAdvancementsPacketConsumer extends Consumer<IUpdateAdvancementsPacket> {}
 }
