@@ -72,3 +72,8 @@ interface IAnimatePacket : PlayerPacket {
 
   var animation: EntityAnimation
 }
+
+interface IUpdateAdvancementsPacket : PlayerPacket {
+  var reset: Boolean
+  var announcements: Set<String>
+}
