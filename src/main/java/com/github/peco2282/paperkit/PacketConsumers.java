@@ -3,6 +3,7 @@ package com.github.peco2282.paperkit;
 import com.github.peco2282.paperkit.packet.IAnimatePacket;
 import com.github.peco2282.paperkit.packet.IBlockDestructionPacket;
 import com.github.peco2282.paperkit.packet.ITeleportEntityPacket;
+import com.github.peco2282.paperkit.packet.IUpdateAdvancementsPacket;
 
 import java.util.function.Consumer;
 
@@ -19,5 +20,14 @@ public interface PacketConsumers {
   /** Consumer interface for handling entity teleportation packets. */
   interface ITeleportEntityPacketConsumer extends Consumer<ITeleportEntityPacket> {}
 
-  interface IAnimatePacketConsumer extends Consumer<IAnimatePacket> {}
+  /**
+   * Consumer interface for handling entity animation packets.
+   */
+  interface IAnimatePacketConsumer extends Consumer<IAnimatePacket> {
+  }
+
+  /**
+   * Consumer interface for handling advancement update packets.
+   */
+  interface IUpdateAdvancementsPacketConsumer extends Consumer<IUpdateAdvancementsPacket> {}
 }
