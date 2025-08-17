@@ -5,8 +5,6 @@ import com.github.peco2282.paperkit.internals.cast
 import com.github.peco2282.paperkit.internals.getReflectField
 import com.github.peco2282.paperkit.internals.location
 import com.github.peco2282.paperkit.internals.vec3
-import net.minecraft.network.PacketListener
-import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientboundAnimatePacket
 import net.minecraft.network.protocol.game.ClientboundBlockDestructionPacket
 import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket
