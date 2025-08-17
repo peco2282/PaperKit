@@ -7,10 +7,12 @@ import com.github.peco2282.paperkit.internals.Debugged
 import com.github.peco2282.paperkit.packet.ClientboundAbsoluteTeleportEntityPacketDefault
 import com.github.peco2282.paperkit.packet.ClientboundAnimatePacketDefault
 import com.github.peco2282.paperkit.packet.ClientboundBlockDestructionPacketDefault
+import com.github.peco2282.paperkit.packet.ClientboundBlockUpdatePacketDefault
 import com.github.peco2282.paperkit.packet.ClientboundRelativeTeleportEntityPacketDefault
 import com.github.peco2282.paperkit.packet.ClientboundUpdateAdvancementsPacketDefault
 import com.github.peco2282.paperkit.packet.IAnimatePacket
 import com.github.peco2282.paperkit.packet.IBlockDestructionPacket
+import com.github.peco2282.paperkit.packet.IBlockUpdatePacket
 import com.github.peco2282.paperkit.packet.ITeleportEntityPacket
 import com.github.peco2282.paperkit.packet.IUpdateAdvancementsPacket
 import org.jetbrains.annotations.ApiStatus
@@ -134,5 +136,29 @@ fun advancement(advancement: IUpdateAdvancementsPacket.() -> Unit): IUpdateAdvan
 fun advancement(advancement: PacketConsumers.IUpdateAdvancementsPacketConsumer): IUpdateAdvancementsPacket {
   val packet = ClientboundUpdateAdvancementsPacketDefault
   advancement.accept(packet)
+  return packet
+}
+
+/**
+ * Creates a block update packet using the provided configuration lambda.
+ *
+ * @param updater Lambda to configure the block update packet
+ * @return Configured [IBlockUpdatePacket] instance
+ */
+fun updateBlock(updater: IBlockUpdatePacket.() -> Unit): IBlockUpdatePacket {
+  val packet = ClientboundBlockUpdatePacketDefault
+  packet.updater()
+  return packet
+}
+
+/**
+ * Creates a block update packet using the provided consumer.
+ *
+ * @param updater Consumer to configure the block update packet
+ * @return Configured [IBlockUpdatePacket] instance
+ */
+fun updateBlock(updater: PacketConsumers.IBlockUpdatePacketConsumer): IBlockUpdatePacket {
+  val packet = ClientboundBlockUpdatePacketDefault
+  updater.accept(packet)
   return packet
 }
